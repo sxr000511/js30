@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scoped CSS Variables and JS</title>
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class="hl">JS</span></h2>
+
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        id="spacing"
+        type="range"
+        name="spacing"
+        min="10"
+        max="200"
+        value="10"
+        data-sizing="px"
+      />
+
+      <label for="blur">Blur:</label>
+      <input
+        id="blur"
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="10"
+        data-sizing="px"
+      />
+
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600" />
+    </div>
+
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
+
+    <style>
+      /*
+      misc styles, nothing to do with CSS variables
+    */
+      /* span标签hl */
+      .hl {
+        color: white;
+      }
+      /* padding不能设color ，用border */
+      img {
+        border-width: 0;
+        border-color: transparent;
+        border-style: solid;
+        filter: blur(0px);
+      }
+
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: "helvetica neue", sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
+
+      .controls {
+        margin-bottom: 50px;
+      }
+
+      input {
+        width: 100px;
+      }
+    </style>
+
+    <script>
+      // const inputs = document.querySelectorAll("input");
+      // const hl = document.querySelector(".hl");
+      // // console.log(inputs);
+
+      // function handler() {
+      //   // this 是 触发的dom对象
+      //   // 不能把括号里都填上变量，why？？？
+      //   // console.log(this.value);
+      //   // 获得单位
+
+      //   // foreach直接赋值给元素不可行
+      //   // 在外部定义全局变量，监听里更改变量的值，然后样式自动改变
+      //   // 可以把每个不同的input给不同的监听方法
+      //   console.log(hl);
+      //   hl.setAttribute("value", `${this.value}`);
+      // }
+      // // 这儿hanler（）不能加括号！！！
+      // inputs.forEach((item) => item.addEventListener("input", handler));
+
+      const spacing = document.querySelector("#spacing");
+      const blur = document.querySelector("#blur");
+      const base = document.querySelector("#base");
+      const hl = document.querySelector(".hl");
+      const img = document.querySelector("img");
+      spacing.addEventListener("input", function () {
+        // console.log(this.value);
+        let suffix = this.dataset.sizing || "";
+        img.style.filter = `blur(${this.value}${suffix})`;
+      });
+      blur.addEventListener("input", function () {
+        // console.log(this.value);
+        let suffix = this.dataset.sizing || "";
+        img.style.borderWidth = `${this.value}${suffix}`;
+      });
+      base.addEventListener("input", function () {
+        // console.log(this.value);
+        let suffix = this.dataset.sizing || "";
+        hl.style.color = `${this.value}${suffix}`;
+        img.style.borderColor = `${this.value}${suffix}`;
+      });
+    </script>
+  </body>
+</html>
