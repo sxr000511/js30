@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array Cardio 💪</title>
+  </head>
+  <body>
+    <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    <script>
+      // Get your shorts on - this is an array workout!
+      // ## Array Cardio Day 1
+
+      // Some data we can work with
+
+      const inventors = [
+        { first: "Albert", last: "Einstein", year: 1879, passed: 1955 },
+        { first: "Isaac", last: "Newton", year: 1643, passed: 1727 },
+        { first: "Galileo", last: "Galilei", year: 1564, passed: 1642 },
+        { first: "Marie", last: "Curie", year: 1867, passed: 1934 },
+        { first: "Johannes", last: "Kepler", year: 1571, passed: 1630 },
+        { first: "Nicolaus", last: "Copernicus", year: 1473, passed: 1543 },
+        { first: "Max", last: "Planck", year: 1858, passed: 1947 },
+        { first: "Katherine", last: "Blodgett", year: 1898, passed: 1979 },
+        { first: "Ada", last: "Lovelace", year: 1815, passed: 1852 },
+        { first: "Sarah E.", last: "Goode", year: 1855, passed: 1905 },
+        { first: "Lise", last: "Meitner", year: 1878, passed: 1968 },
+        { first: "Hanna", last: "Hammarström", year: 1829, passed: 1909 },
+      ];
+
+      const people = [
+        "Bernhard, Sandra",
+        "Bethea, Erin",
+        "Becker, Carl",
+        "Bentsen, Lloyd",
+        "Beckett, Samuel",
+        "Blake, William",
+        "Berger, Ric",
+        "Beddoes, Mick",
+        "Beethoven, Ludwig",
+        "Belloc, Hilaire",
+        "Begin, Menachem",
+        "Bellow, Saul",
+        "Benchley, Robert",
+        "Blair, Robert",
+        "Benenson, Peter",
+        "Benjamin, Walter",
+        "Berlin, Irving",
+        "Benn, Tony",
+        "Benson, Leana",
+        "Bent, Silas",
+        "Berle, Milton",
+        "Berry, Halle",
+        "Biko, Steve",
+        "Beck, Glenn",
+        "Bergman, Ingmar",
+        "Black, Elk",
+        "Berio, Luciano",
+        "Berne, Eric",
+        "Berra, Yogi",
+        "Berry, Wendell",
+        "Bevan, Aneurin",
+        "Ben-Gurion, David",
+        "Bevel, Ken",
+        "Biden, Joseph",
+        "Bennington, Chester",
+        "Bierce, Ambrose",
+        "Billings, Josh",
+        "Birrell, Augustine",
+        "Blair, Tony",
+        "Beecher, Henry",
+        "Biondo, Frank",
+      ];
+
+      // Array.prototype.filter()
+      // filter 为数组中的每个元素调用一次 callback 函数，
+      // 并利用所有使得 callback 返回 true 或等价于 true 的值的元素创建一个新数组。
+      // 1. Filter the list of inventors for those who were born in the 1500's
+      function filterByYear(item) {
+        return item.year > 1500 && item.year < 1600;
+      }
+      var fltrslt = inventors.filter(filterByYear);
+      // console.log(fltrslt);
+
+      // Array.prototype.map()
+      // map() 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+      // 2. Give us an array of the inventors first and last names
+
+      var maprslt = inventors.map(function (obj) {
+        return obj.first + obj.last;
+      });
+      // console.log(maprslt);
+
+      // Array.prototype.sort()
+      // 3. Sort the inventors by birthdate, oldest to youngest
+      // 如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前
+      // 数组已原地排序
+      var sortrslt = inventors.sort((a, b) => {
+        return a.year - b.year;
+      });
+      // console.log(sortrslt);
+
+      // Array.prototype.reduce()
+      // 4. How many years did all the inventors live all together?
+      // arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])
+      // 返回值:函数累计处理的结果
+      // 不要乱加括号
+      var reducerslt = inventors.reduce((acc, cur) => {
+        return acc + cur.passed - cur.year;
+      }, 0);
+      // 或者
+      // var reducerslt = inventors.reduce(
+      //   (acc, cur) => acc + cur.passed - cur.year,
+      //   0
+      // );
+      // console.log(reducerslt);
+
+      // 5. Sort the inventors by years lived
+      var agesort = inventors.sort((a, b) => {
+        return a.year - a.passed - (b.year - b.passed);
+      });
+      // agesort.forEach((item) => {
+      //   console.log(item.passed - item.year);
+      // });
+
+      // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+      // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+
+      // var streets = document.querySelectorAll(".mw-category li a");
+      // var streetnames = streets.map((index) => index.innerHTML);
+      // streetnames = Array.from(streetnames);
+      // var result = streetnames.filter((street) => street.includes("de"));
+      // expect result:
+      // ["Boulevard de l'Amiral-Bruix", "Boulevard des Capucines", "Boulevard de la Chapelle", "Boulevard de Clichy", "Boulevard de l'Hôpital", "Boulevard des Italiens", "Boulevard de la Madeleine", "Boulevard de Magenta", "Boulevard Marguerite-de-Rochechouart", "Boulevard de Sébastopol", "Boulevard de Strasbourg", "Boulevard de la Zone"]
+      // String.prototype.includes()
+      // includes() 方法用于判断一个字符串是否包含在另一个字符串中，根据情况返回 true 或 false。
+
+      // 7. sort Exercise
+      // Sort the people alphabetically by last name
+      // var lastname = people.map((index) => index.split(",")[1]);
+      // console.log(lastname);
+      // var resultname = lastname.sort();
+      // console.log(resultname);
+
+      // 8. Reduce Exercise
+      // Sum up the instances of each of these
+      const data = [
+        "car",
+        "car",
+        "truck",
+        "truck",
+        "bike",
+        "walk",
+        "car",
+        "van",
+        "bike",
+        "walk",
+        "car",
+        "van",
+        "car",
+        "truck",
+      ];
+      // MDN:计算数组中每个元素出现的次数,
+      var result = data.reduce((acc, cur) => {
+        // 不是acccur===null
+        // acc对象，cur是key，累加value
+        if (!acc[cur]) {
+          acc[cur] = 0;
+        }
+        acc[cur]++;
+        return acc;
+      }, {});
+      console.log(result);
+    </script>
+  </body>
+</html>
