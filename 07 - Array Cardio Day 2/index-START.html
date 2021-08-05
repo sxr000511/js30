@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Array Cardio 💪💪</title>
+  </head>
+  <body>
+    <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    <script>
+      // ## Array Cardio Day 2
+
+      const people = [
+        { name: "Wes", year: 1988 },
+        { name: "Kait", year: 1986 },
+        { name: "Irv", year: 1970 },
+        { name: "Lux", year: 2015 },
+      ];
+
+      const comments = [
+        { text: "Love this!", id: 523423 },
+        { text: "Super good", id: 823423 },
+        { text: "You are the best", id: 2039842 },
+        { text: "Ramen is my fav food ever", id: 123523 },
+        { text: "Nice Nice Nice!", id: 542328 },
+      ];
+
+      // Some and Every Checks
+      // Array.prototype.some() // is at least one person 19 or older?
+      var resome = people.some((item) => 2021 - item.year >= 19);
+      // console.log(resome);
+      // Array.prototype.every() // is everyone 19 or older?
+      var reevery = people.every((item) => 2021 - item.year >= 19);
+      // console.log(reevery);
+
+      // Array.prototype.find()
+      //  find() 方法返回数组中满足提供的测试函数的第一个元素的值。
+      // Find is like filter, but instead returns just the one you are looking for
+      // find the comment with the ID of 823423
+      // console.log(comments.find((index) => index.id === 823423));
+      // Array.prototype.findIndex()
+      // Find the comment with this ID
+      // delete the comment with the ID of 823423
+      var pos = comments.findIndex((index) => index.id === 823423);
+      console.log(pos);
+      // splice() 方法通过删除或替换现有元素或者原地添加新的元素来修改数组,并以数组形式返回被修改的内容。此方法会改变原数组。
+      console.log(comments.splice(pos, 1));
+    </script>
+  </body>
+</html>

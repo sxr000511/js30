@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      // fetch() 建立起跨域异步会话
+      // 当然它只是一个 HTTP 响应，而不是真的JSON。为了获取JSON的内容，我们需要使用 json() /blob() etc
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+      const names = [];
+      fetch(endpoint)
+        .then(function (response) {
+          // console.log(response);
+          // responsebody里1000条数据
+          return response.json();
+        })
+        .then(function (myJson) {
+          //  myjson 是一个object ，1000个array组成
+          // es6扩展字符串 对象的合并
+          // ...myjson被添加到names数组里
+          // console.log(myJson[0]);
+          names.push(...myJson);
+          // console.log(names[0]);
+          // 这儿是深拷贝，获得myjson为对象数组，深拷贝到names里，
+          // names里存的是索引，所以外部声明const，可以给names幅值
+          // 如果在此处更改names[0]，会发现names[0]和myjson[0]不同
+        });
+
+      var input = document.querySelector("input");
+      var sug = document.querySelector(".suggestions");
+
+      input.addEventListener("change", inputhandler);
+      function inputhandler(event) {
+        // this.value获得输入值
+        // console.log(this.value);
+        reghandler(this.value);
+      }
+      function reghandler(text) {
+        // 全局不分大小写
+        const regex = new RegExp(text, "gi");
+        // regresult包含正则匹配cityname 和 statename的结果
+        var regresult = names.filter(
+          (item) => regex.test(item.city) || regex.test(item.state)
+        );
+        // console.log(regresult);
+        // 城市名字幅值进来
+        sug.innerHTML = regresult
+          .map((item) => `<li>${item.city} , ${item.state}</li>`)
+          .join(" ");
+      }
+    </script>
+  </body>
+</html>
