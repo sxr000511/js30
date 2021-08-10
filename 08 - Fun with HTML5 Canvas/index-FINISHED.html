@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+  </head>
+  <body>
+    <canvas id="draw" width="800" height="800"></canvas>
+    <script>
+      const canvas = document.querySelector("#draw");
+      const ctx = canvas.getContext("2d");
+      // 设置cavas属性
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      ctx.strokeStyle = "#BADA55";
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.lineWidth = 100;
+      // ctx.globalCompositeOperation = 'multiply';
+
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+      let hue = 0;
+      let direction = true;
+      // 关键在于坐标
+      // lastX 和last Y 是上一帧（姑且这么理解）的坐标  e.offetx和e.offsetY是这一帧
+      // 按键按下时不停循环执行draw函数，就能画出来了
+      function draw(e) {
+        if (!isDrawing) return; // stop the fn from running when they are not moused down
+        console.log(e);
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+        ctx.beginPath();
+        // 1.start from
+        ctx.moveTo(lastX, lastY);
+        //2. go to
+        ctx.lineTo(e.offsetX, e.offsetY);
+        // stoke不封闭图形
+        ctx.stroke();
+        // 3.把goto的这一帧末尾存起来
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        // hue是笔触色调，渐变变化
+        hue++;
+        if (hue >= 360) {
+          hue = 0;
+        }
+        // 控制笔触大小在一个范围
+        if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+          direction = !direction;
+        }
+
+        if (direction) {
+          ctx.lineWidth++;
+        } else {
+          ctx.lineWidth--;
+        }
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+      });
+
+      // mousemove添加监听方法，但是只有isdrawing状态才会记录
+      canvas.addEventListener("mousemove", draw);
+      // 不再按下
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+      // 移除画布
+      canvas.addEventListener("mouseout", () => (isDrawing = false));
+    </script>
+
+    <style>
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>
