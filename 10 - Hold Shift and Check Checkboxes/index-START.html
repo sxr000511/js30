@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hold Shift to Check Multiple Checkboxes</title>
+    <style>
+      body {
+        background-color: #ffc600;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .inbox {
+        background-color: white;
+        max-width: 400px;
+        /* 使整个盒子左右居中，上下50px */
+        margin: 50px auto;
+        border-radius: 15px;
+        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .item {
+        /* flex 一行 居中 */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        border-bottom: #f1f1f1 thin solid;
+      }
+
+      /* 清除最后一个item的bottom border */
+      /* 如果不清除，因为圆角，会显示出来短线 */
+      .item:last-child {
+        border: 0;
+      }
+      /* 注意input的margin = p的padding */
+      /* 如果p的padding！==20，那么左边线的高度和文字高度相同， */
+      /* 实际上使p的padding撑开了整个item */
+      .item input {
+        margin: 20px;
+      }
+
+      .item p {
+        border-left: 1px solid #d1e2ff;
+        padding: 20px;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+   The following is a common layout you would see in an email client.
+
+   When a user clicks a checkbox, holds Shift, and then clicks another checkbox a few rows down, all the checkboxes inbetween those two checkboxes should be checked.
+
+  -->
+    <div class="inbox">
+      <div class="item">
+        <input type="checkbox" />
+        <p>This is an inbox layout.</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Check one item</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Hold down your Shift key</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Check a lower item</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Everything in between should also be set to checked</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Try to do it without any libraries</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Just regular JavaScript</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Good Luck!</p>
+      </div>
+      <div class="item">
+        <input type="checkbox" />
+        <p>Don't forget to tweet your result!</p>
+      </div>
+    </div>
+
+    <script>
+      var checklist = document.querySelector(".inbox");
+      var keepindex = 0;
+      var newindex = 0;
+      checklist.addEventListener("click", checkhandler);
+      function checkhandler(event) {
+        if (event.shiftKey && keepindex) {
+          for (let i = 0; i < this.children.length; i++) {
+            if (event.target.parentNode === this.children[i]) {
+              newindex = i;
+            }
+          }
+          if (newindex && keepindex) {
+            // console.log("inshow");
+            for (let i = 0; i < this.children.length; i++) {
+              this.children[i].querySelector("input").checked =
+                (i >= keepindex && i <= newindex) ||
+                (i <= keepindex && i >= newindex)
+                  ? true
+                  : this.children[i].querySelector("input").checked;
+            }
+          }
+        } else {
+          for (let i = 0; i < this.children.length; i++) {
+            if (event.target.parentNode === this.children[i]) {
+              keepindex = i;
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
