@@ -1,3 +1,7 @@
+title: grid1
+date: 2021-08-15
+tags:
+
 # 仿写
 
 ## html 语义化
@@ -12,7 +16,7 @@ https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html
 ### header
 
 整体 gird 布局，左边
-![](./note/header.jpg)
+![](https://github.com/sxr000511/js_minidemo/blob/master/website_imitator/smart_official_website/note/aboutus.JPG?raw=true)
 
 1. 宽度 100vw 视口占全部
 2. z-index -》200 使之最高
@@ -44,7 +48,7 @@ header nav {
 
 ### aboutus
 
-![](note/aboutus.jpg)
+![](https://github.com/sxr000511/js_minidemo/blob/master/website_imitator/smart_official_website/note/header.JPG?raw=true)
 
 ```
 * 关于我们 */
@@ -87,7 +91,7 @@ section {
 }
 ```
 
-![](note/feature.jpg)
+![](https://github.com/sxr000511/js_minidemo/blob/master/website_imitator/smart_official_website/note/feature.JPG?raw=true)
 featues 是六个 feature 的集合
 用 grid 分成六个 area
 关注下分行分列的写法
