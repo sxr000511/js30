@@ -1,4 +1,3 @@
-
 const headerEl = document.querySelector("header");
 const scrollToTop = document.querySelector(".scroll-to-top");
 
@@ -117,10 +116,10 @@ const scroll = new SmoothScroll(
 );
 
 document.addEventListener("scrollStart", () => {
-  if(headerEl.classList.contains("open")) {
+  if (headerEl.classList.contains("open")) {
     headerEl.classList.remove("open");
   }
-})
+});
 
 const exploreBtnEls = document.querySelectorAll(".explore-btn");
 exploreBtnEls.forEach((exploreBtnEl) => {
@@ -133,4 +132,11 @@ exploreBtnEls.forEach((exploreBtnEl) => {
 const burgerEl = document.querySelector(".burger");
 burgerEl.addEventListener("click", () => {
   headerEl.classList.toggle("open");
-})
+});
+
+// 开始滚动-》如果open打开的，就关闭
+document.addEventListener("scrollStart", () => {
+  if (headerEl.classList.contains("open")) {
+    headerEl.classList.remove("open");
+  }
+});
