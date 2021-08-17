@@ -610,6 +610,7 @@ footer {
 
 @media (max-width: 1100px) {
   header nav {
+    /* 隐藏原来的nav */
     display: none;
   }
 
@@ -639,7 +640,7 @@ footer {
     position: absolute;
     top: 6px;
   }
-
+/* open类名下的nav移动位置 */
   header.open nav {
     display: grid;
     position: absolute;
